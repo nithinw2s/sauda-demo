@@ -4,7 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});
+})
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -19,6 +19,7 @@ export default function Home() {
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         
         <div>This is Bike route</div>
+        <h1 className="text-4xl font-bold">Bike</h1>
         
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
