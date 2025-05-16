@@ -1,6 +1,5 @@
-// components/FilterComponent.tsx
 import { useState, useCallback } from 'react';
-// import debounce from 'lodash.debounce';
+import debounce from 'lodash.debounce';
 import {
   Box,
   FormControl,
@@ -16,6 +15,8 @@ import {
   styled,
 } from '@mui/material';
 import { FilterField } from '@/utils/typos';
+import CustomButton from '../customButton';
+import React from 'react';
 
 interface FilterComponentProps {
   fields: FilterField[];
@@ -48,12 +49,12 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ fields, onFilterChang
     [filterValues, onFilterChange],
   );
 
-//   const debouncedHandleChange = useCallback(
-//     debounce((id: string, value: any) => {
-//       handleChange(id, value);
-//     }, 300),
-//     [handleChange],
-//   );
+  const debouncedHandleChange = useCallback(
+    debounce((id: string, value: any) => {
+      handleChange(id, value);
+    }, 300),
+    [handleChange],
+  );
 
   const resetFilters = () => {
     setFilterValues({});
@@ -109,7 +110,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ fields, onFilterChang
             <InputLabel>{field.label}</InputLabel>
             <Slider
               value={filterValues[field.id] || field.min || 0}
-              onChange={(_, value) => handleChange(field.id, value)}
+              onChange={(_, value) => debouncedHandleChange(field.id, value)}
               min={field.min}
               max={field.max}
               valueLabelDisplay="auto"
@@ -123,7 +124,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ fields, onFilterChang
             margin="normal"
             label={field.label}
             value={filterValues[field.id] || ''}
-            onChange={(e) => handleChange(field.id, e.target.value)}
+            onChange={(e) => debouncedHandleChange(field.id, e.target.value)}
           />
         );
       default:
@@ -132,17 +133,19 @@ const FilterComponent: React.FC<FilterComponentProps> = ({ fields, onFilterChang
   };
 
   return (
-    <Box sx={{ p: 2, bgcolor: 'background.paper', borderRadius: 2 }}>
+    <Box sx={{ p: 2, bgcolor: 'background.paper', borderRadius: 2, display:'flex', 
+    justifyContent: 'space-between', minWidth: '90vw', border: '1px solid black 0', 
+    boxShadow:'rgba(0, 0, 0, 0.1) 0px 2px 4px' }}>
       {fields.map((field) => (
         <Box key={field.id} sx={{ mb: 2 }}>
           {renderField(field)}
         </Box>
       ))}
-      <Button variant="outlined" onClick={resetFilters} sx={{ mt: 2 }}>
+      <CustomButton onClick={resetFilters} size='small' >
         Reset Filters
-      </Button>
+      </CustomButton>
     </Box>
   );
 };
 
-export default FilterComponent;
+export default React.memo(FilterComponent);
