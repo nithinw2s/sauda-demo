@@ -66,7 +66,7 @@ const BannerSearch: React.FC<Props> = ({ SearchContent }) => {
             />
             <div className="absolute top-10 left-0 w-full">
                 {query.length > 0 && (
-              <ul className="mt-4 bg-white shadow rounded-md">
+              <ul className="mt-4 bg-white shadow rounded-md suggest-ul">
                 {filtered.length > 0 ? (
                   filtered.map((item) => (
                     <li
@@ -83,7 +83,7 @@ const BannerSearch: React.FC<Props> = ({ SearchContent }) => {
                     </li>
                   ))
                 ) : (
-                  <li className="p-2 text-gray-500">No results found.</li>
+                  <li className="p-2 text-gray-500 text-white">No results found.</li>
                 )}
               </ul>
             )}
