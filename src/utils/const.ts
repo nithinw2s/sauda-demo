@@ -45,3 +45,56 @@ export const filterFields: FilterField[] = [
     ],
   },
 ];
+
+
+export const SearchContent = [
+  {
+    id:1,
+    title: "Samsung",
+    ads: "250",
+    link: "https://www.samsung.com/in/"
+  },
+  {
+    id:2,
+    title: "iphone",
+    ads: "200",
+    link: "https://www.apple.com/in/iphone/"
+  },
+  {
+    id:3,
+    title: "vivo",
+    ads: "200",
+    link: "https://www.vivo.com/in"
+  },
+  {
+    id:4,
+    title: "oppo",
+    ads: "25",
+    link: "https://www.oppo.com/in/"
+  },
+  {
+    id:5,
+    title: "redmi",
+    ads: "300",
+    link: "https://www.mi.com/in/"
+  
+  },
+  {
+    id:6,
+    title: "lava",
+    ads: "150",
+    link: "https://www.lavamobiles.com/"
+  },
+  {
+    id:7,
+    title: "micromax",
+    ads: "100",
+    link: "https://www.lavamobiles.com/"
+  },
+  {
+    id:8,
+    title: "gfive",
+    ads: "10",
+    link: "https://www.lavamobiles.com/"
+  }
+];
