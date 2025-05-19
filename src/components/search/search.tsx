@@ -49,22 +49,15 @@ const BannerSearch: React.FC<Props> = ({ SearchContent }) => {
 
   return (
     <>
-      <div className="relative">
-        <Image
-          src={banner_img}
-          alt="Banner"
-          className="w-full h-[100vh] opacity-30 "
-        />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex gap-5">
           <div className="relative">
             <input
               type="search"
               placeholder="Search mobile brand..."
-              className="w-[400px] h-[50px] rounded-full pl-5 pr-5 bg-white opacity-80"
+              className="w-[600px] h-[50px] rounded-full pl-5 pr-5 bg-white opacity-80"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <div className="absolute top-10 left-0 w-full">
+            <div className="absolute top-10 left-0 w-[400px]">
                 {query.length > 0 && (
               <ul className="mt-4 bg-white shadow rounded-md suggest-ul">
                 {filtered.length > 0 ? (
@@ -89,11 +82,6 @@ const BannerSearch: React.FC<Props> = ({ SearchContent }) => {
             )}
             </div>
           </div>
-          <Button size="medium" variant="contained" onClick={SearchBtn}>
-            Search
-          </Button>
-        </div>
-      </div>
     </>
   );
 };
