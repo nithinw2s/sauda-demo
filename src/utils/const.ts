@@ -1,3 +1,4 @@
+import { link } from "fs";
 import { FilterField } from "./typos";
 
 export const filterFields: FilterField[] = [
@@ -98,3 +99,50 @@ export const SearchContent = [
     link: "https://www.lavamobiles.com/"
   }
 ];
+
+export const Categories = [
+  {
+    id: 1,
+    name: "Electronics",
+    image: require("../assets/images/appliances.png"),
+    link: "/electronics",
+  },
+  {
+    id: 2,
+    name: "Mobiles",
+    image: require("../assets/images/banner.jpg"),
+    link: "/mobiles",
+  },{
+    id: 3,
+    name: "Fashion",
+    image: require("../assets/images/cars.jpg"),
+    link: "/fashions",
+  },{
+    id: 4,
+    name: "Travel",
+    image: require("../assets/images/electronics.jpg"),
+    link: "/bike",
+  },{
+    id: 5,
+    name: "Dress",
+    image: require("../assets/images/furniture.jpg"),
+    link: "/fashions",
+  },{
+    id: 6,
+    name: "Furniture",
+    image: require("../assets/images/appliances.png"),
+    link: "/Furnitures",
+  },{
+    id: 7,
+    name: "Electronics",
+    image: require("../assets/images/appliances.png"),
+    link: "/electronics",
+  },
+  {
+    id: 8,
+    name: "Mobiles",
+    image: require("../assets/images/banner.jpg"),
+    link: "/mobiles",
+  }
+
+]

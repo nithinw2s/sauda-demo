@@ -78,3 +78,24 @@ body {
   align-items: center;    
   justify-content: center; 
 }
+
+
+
+
+.catergorie_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #fff;
+  margin: 60px 40px;
+}
+.catergorie_div img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+.catergorie_div p {
+  text-align: center;
+  font-size: 16px;
+}
