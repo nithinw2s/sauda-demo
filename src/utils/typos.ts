@@ -9,3 +9,10 @@ export interface FilterField {
   min?: number; // For sliders
   max?: number; // For sliders
 }
+
+export interface FilterConfig {
+  key: string;
+  type: 'select' | 'range';
+  options?: string[]; 
+  range?: [number, number]; 
+};
