@@ -1,30 +1,35 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import CustomFilterComponent from "@/components/filter/filter";
+import { FilterConfig } from "@/utils/typos";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
-export default function Home() {
-  return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        
-        <div>This is SuperBike route</div>
-        
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        
-        
-      </footer>
-    </div>
-  );
+const index = () => {
+
+    const handleApply = (key: string) => {
+        console.log(`Applied filter: ${key}`);
+    }
+    const handleReset = (key: string) => {
+        console.log(`Reset filter: ${key}`);
+    }
+    // This is a superbikes page filterConfigs
+    const superbikeFilterConfigs: FilterConfig[] = [
+        { key: 'brand', type: 'select', options: ['Ducati', 'BMW', 'Kawasaki'] },
+        { key: 'model', type: 'select', options: ['Panigale V4', 'S1000RR', 'Ninja ZX-10R'] },
+        { key: 'engineType', type: 'select', options: ['Petrol', 'Electric'] },
+        { key: 'price', type: 'range', range: [15000, 50000] },
+    ];
+
+
+    return (
+        <div className="flex flex-col items-center justify-center h-screen">
+            <h1>Super Bikes Component</h1>
+            <CustomFilterComponent
+            fields={superbikeFilterConfigs}
+            onApply={handleApply}
+            onReset={handleReset}
+            />
+        </div>
+    )
 }
+
+export default index;
