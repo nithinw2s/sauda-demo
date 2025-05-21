@@ -7,7 +7,11 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {}, // optionally extend with your MUI theme here
+    extend: {
+      maxHeight: {
+        'fit': 'fit-content',
+      }
+    },
   },
   plugins: [],
 }

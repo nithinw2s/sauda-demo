@@ -1,67 +1,34 @@
-import React, { useState } from 'react';
-import FilterDropDown from '@/components/filter/filterDropDown';
 
-const MobileComponet: React.FC = () => {
+import CustomFilterComponent from "@/components/filter/filter";
+import { FilterConfig } from "@/utils/typos";
 
-  const [filters, setFilters] = useState({
-    rating: [],
-    curriculum: [],
-    courses: [],
-  });
-  console.log('Filters:', filters);
 
-  const filterOptions = {
-    rating: ['1', '2', '3', '4', '5'],
-    curriculum: ['IB', 'AP', 'CBSE'],
-    courses: ['Math', 'Science', 'History'],
-  };
+const index = () => {
 
-  const handleSelect = (key: string, item: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: item === 'all' ? [] : [item], // Single selection logic
-    }));
-  };
+    const handleApply = (key: string) => {
+        console.log(`Applied filter: ${key}`);
+    }
+    const handleReset = (key: string) => {
+        console.log(`Reset filter: ${key}`);
+    }
+    // this is the electronics page filterConfigs
+    const electronicsFilterConfigs: FilterConfig[] = [
+        { key: 'brand', type: 'select', options: ['Samsung', 'Apple', 'Sony'] },
+        { key: 'model', type: 'select', options: ['Galaxy S21', 'iPhone 12', 'Xperia 5'] },
+        { key: 'storage', type: 'select', options: ['64GB', '128GB', '256GB'] },
+        { key: 'price', type: 'range', range: [100, 2000] },
+    ];
 
-  const handleApply = (key: string) => {
-    console.log("with values:", filters);
-  };
-
-  const handleReset = (key: string) => {
-    setFilters((prev) => ({ ...prev, [key]: [] }));
-  };
-
-  return (
-      <div className='flex flex-col items-center justify-center h-screen'>
-        <h1 className='mt-8'>Electrical Component</h1>
-        <div className='flex flex-row justify-center h-screen mt-4'>
-      <FilterDropDown
-        filterKey="rating"
-        filetrerOptions={filterOptions.rating}
-        selectedOptions={filters.rating}
-        onSelectedOptionsChange={handleSelect}
-        onApply={handleApply}
-        onReset={handleReset}
-      />
-      <FilterDropDown
-        filterKey="curriculum"
-        filetrerOptions={filterOptions.curriculum}
-        selectedOptions={filters.curriculum}
-        onSelectedOptionsChange={handleSelect}
-        onApply={handleApply}
-        onReset={handleReset}
-      />
-      <FilterDropDown
-        filterKey="courses"
-        filetrerOptions={filterOptions.courses}
-        selectedOptions={filters.courses}
-        onSelectedOptionsChange={handleSelect}
-        onApply={handleApply}
-        onReset={handleReset}
-      />
+    return (
+        <div className="flex flex-col items-center justify-center h-screen">
+            <h1>Electronics Component</h1>
+            <CustomFilterComponent
+            fields={electronicsFilterConfigs}
+            onApply={handleApply}
+            onReset={handleReset}
+            />
         </div>
-    </div>
-  );
-};
+    )
+}
 
-export default MobileComponet;
+export default index;

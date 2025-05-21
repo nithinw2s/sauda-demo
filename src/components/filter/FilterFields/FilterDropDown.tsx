@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Menu, MenuItem } from "@mui/material";
-import CustomButton from "../customButton";
+import CustomButton from "../../customButton";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { CustomMenuItem } from "../customComponents/customComponents";
+import { CustomMenuItem } from "../../customComponents/customComponents";
 
 interface FilterDropDownProps {
     filterKey: string;
@@ -50,7 +50,7 @@ const FilterDropDown = ({
     };
 
     return (
-        <div className="relative" style={wrapperStyle}>
+        <div className="border border-gray-600 rounded-lg max-h-fit" style={wrapperStyle}>
             <Button
                 id={`basic-button-${filterKey}`}
                 aria-controls={Boolean(anchorEl) ? `basic-menu-${filterKey}` : undefined}
@@ -63,7 +63,7 @@ const FilterDropDown = ({
                 <div className="flex flex-col items-center gap-2" >
                     {filterKey}
                     <span style={{ ...textStyle, marginLeft: "4px", fontSize: "10px", color: "#888888" }}>
-                        {`Selected: ${selectedOptions.length > 0 ? selectedOptions.join(', ') : 'None'}`}
+                        {`Selected: ${selectedOptions?.length > 0 ? selectedOptions.join(', ') : 'None'}`}
                     </span>
                 </div>
             </Button>
@@ -77,7 +77,7 @@ const FilterDropDown = ({
                     {filetrerOptions.map((option, index) => (
                         <div
                             key={index}
-                            className={`flex items-center gap-2 cursor-pointer hover:bg-blue-300 px-2 py-1 border-2 border-solid black rounded-[10%] ${selectedOptions.includes(option) ? 'bg-blue-300' : 'bg-blue-50'}`}
+                            className={`flex items-center gap-2 cursor-pointer hover:bg-blue-300 px-2 py-1 border-2 border-solid black rounded-[10%] ${selectedOptions?.includes(option) ? 'bg-blue-300' : 'bg-blue-50'}`}
                             onClick={() => onSelectedOptionsChange(filterKey, option)}
                         >
                             {option}
@@ -91,9 +91,8 @@ const FilterDropDown = ({
                     </div>
                 </div>
             </Menu>
-
         </div>
     )
 };
 
-export default FilterDropDown;
+export default React.memo(FilterDropDown);
