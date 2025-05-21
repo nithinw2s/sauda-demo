@@ -14,7 +14,7 @@ export default function Dashboard() {
     // <ProtectedRoute>
       <Container maxWidth="lg" className="min-h-screen flex flex-col items-center justify-center">
         <Typography variant="h4" className="mb-4">
-          Welcome to the Dashboard
+          Welcome to the Dashboard page
         </Typography>
         <Button
           variant="contained"
