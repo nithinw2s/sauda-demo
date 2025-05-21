@@ -27,5 +27,10 @@ export const cardsData: CardItem[] = [
     title: 'Frog',
     description: 'Frogs are amphibians known for their jumping abilities...',
     image: LizardImg.src,
+  },{
+    id: 1,
+    title: 'Lizard',
+    description: 'Lizards are a widespread group of squamate reptiles...',
+    image: LizardImg.src,
   },
 ];

@@ -53,11 +53,11 @@ const BannerSearch: React.FC<Props> = ({ SearchContent }) => {
         <input
           type="search"
           placeholder="Search mobile brand..."
-          className="w-[600px] h-[45px] rounded-full pl-5 pr-5 bg-white opacity-80 rounded-none"
+          className="w-[300px] h-[40px] rounded-full pl-5 pr-5 bg-white opacity-80 rounded-none"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <div className="absolute top-10 left-0 w-[600px]">
+        <div className="absolute top-10 left-0 w-[300px]">
           {query.length > 0 && (
             <ul className="mt-4 bg-white shadow rounded-md suggest-ul">
               {filtered.length > 0 ? (
