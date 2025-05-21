@@ -23,6 +23,7 @@ const App: React.FC<MyAppProps> = (props) => {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
+    {/* <ProtectedRoute></ProtectedRoute> */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
