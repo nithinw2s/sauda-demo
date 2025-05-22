@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { type FC, type ButtonHTMLAttributes, Children } from "react";
 
 interface CustomButtonProps {
@@ -43,13 +44,13 @@ const CustomButton: FC <CustomButtonProps> = ({
     
 
     return (
-        <button
+        <Button
             className={btnStyle}
             onClick={onClick}
             disabled={disabled}
         >
             {children}
-        </button>)
+        </Button>)
 
 };
 

@@ -11,25 +11,42 @@ export default function AuthPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = isLogin ? '/api/login' : '/api/register';
-    
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, ...(isLogin ? {} : { name }) }),
-      });
-      
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem('token', data.token);
-        router.push('/dashboard');
-      } else {
-        alert(data.message || 'Something went wrong');
-      }
-    } catch (error) {
-      alert('Error connecting to server');
+    const endpoint = isLogin ? '/api/login/route' : '/api/register';
+
+    if (!email || !password) {
+      alert('Please fill in all fields');
+      return;
+    } else if (!isLogin && !name) {
+      alert('Please enter your name');
+      return;
+    } else {
+      // response.cookies.set('auth_token', 'your-jwt-token', {
+      //   httpOnly: true,
+      //   secure: true,
+      //   path: '/',
+      //   maxAge: 60 * 60 * 24, // 1 day
+      // });
+      // sessionStorage.setItem('token', "dummy-token");
+      router.push('/dashboard');
     }
+
+    // try {
+    //   const res = await fetch(endpoint, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ email, password, ...(isLogin ? {} : { name }) }),
+    //   });
+
+    //   const data = await res.json();
+    //   if (res.ok) {
+    //     localStorage.setItem('token', data.token);
+    //     router.push('/dashboard');
+    //   } else {
+    //     alert(data.message || 'Something went wrong');
+    //   }
+    // } catch (error) {
+    //   alert('Error connecting to server');
+    // }
   };
 
   return (
