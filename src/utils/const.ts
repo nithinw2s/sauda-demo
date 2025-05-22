@@ -144,5 +144,40 @@ export const Categories = [
     image: require("../assets/images/banner.jpg"),
     link: "/mobiles",
   }
+]
 
+export const ListingContent = [
+  {
+    name: 'Maruti Swift',
+    tax: 4500,
+    price: 'AED 600000',
+    year: 2020,
+    kilometer: 30000,
+    location: 'Delhi, India',
+    date: '2025-03-15',
+    membership:'premium',
+    link: '/mobile'
+  },
+  {
+    name: 'Honda Activa',
+    tax: 1200,
+    price: 'AED 75000',
+    year: 2022,
+    kilometer: 8000,
+    location: 'Pune, India',
+    date: '2025-04-20',
+    membership:'premium',
+    link:'/electronics'
+  },
+  {
+    name: 'Hyundai Creta',
+    tax: 7000,
+    price: 'AED 1200000',
+    year: 2018,
+    kilometer: 60000,
+    location: 'Bangalore, India',
+    date: '2025-05-10',
+    membership:'premium',
+    link:'/bike'
+  },
 ]

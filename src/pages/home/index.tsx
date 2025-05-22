@@ -5,6 +5,7 @@ import Banner from '@/assets/images/dubaibanner.jpg'
 import CardsPage from '../cards/cardspage'
 import Topbar from '@/components/topbar/topbar'
 import Catergorie from '@/components/catergories/catergorie'
+import Listing from '@/components/listingcontent/listing'
 
 export default function home() {
   return (
@@ -17,6 +18,7 @@ export default function home() {
         <Catergorie/>
         <div><Carousel/></div>
         <div><CardsPage/></div>
+        <Listing/>
     </div>
   )
 }
