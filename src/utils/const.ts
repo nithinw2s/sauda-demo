@@ -1,5 +1,10 @@
 import { link } from "fs";
 import { FilterField } from "./typos";
+import appliancesImg from "../assets/images/appliances.png";
+import bannerImg from "../assets/images/banner.jpg";
+import carsImg from "../assets/images/cars.jpg";
+import electronicsImg from "../assets/images/electronics.jpg";
+import furnitureImg from "../assets/images/furniture.jpg";
 
 export const filterFields: FilterField[] = [
   {
@@ -104,47 +109,53 @@ export const Categories = [
   {
     id: 1,
     name: "Electronics",
-    image: require("../assets/images/appliances.png"),
+    image: appliancesImg,
     link: "/electronics",
   },
   {
     id: 2,
     name: "Mobiles",
-    image: require("../assets/images/banner.jpg"),
+    image: bannerImg,
     link: "/mobiles",
-  },{
+  },
+  {
     id: 3,
     name: "Fashion",
-    image: require("../assets/images/cars.jpg"),
+    image: carsImg,
     link: "/fashions",
-  },{
+  },
+  {
     id: 4,
     name: "Travel",
-    image: require("../assets/images/electronics.jpg"),
+    image: electronicsImg,
     link: "/bike",
-  },{
+  },
+  {
     id: 5,
     name: "Dress",
-    image: require("../assets/images/furniture.jpg"),
+    image: furnitureImg,
     link: "/fashions",
-  },{
+  },
+  {
     id: 6,
     name: "Furniture",
-    image: require("../assets/images/appliances.png"),
+    image: appliancesImg,
     link: "/Furnitures",
-  },{
+  },
+  {
     id: 7,
     name: "Electronics",
-    image: require("../assets/images/appliances.png"),
+    image: appliancesImg,
     link: "/electronics",
   },
   {
     id: 8,
     name: "Mobiles",
-    image: require("../assets/images/banner.jpg"),
+    image: bannerImg,
     link: "/mobiles",
-  }
-]
+  },
+];
+
 
 export const ListingContent = [
   {

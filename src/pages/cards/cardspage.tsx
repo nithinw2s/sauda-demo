@@ -23,7 +23,7 @@ const CardsPage: React.FC = () => {
             <Grid container spacing={2}>
                 {cards.map((item) => {
                     return (
-                        <Grid sm={6} md={2} component="div" key={item.id} sx={{ width: 300, height: 300 }}>
+                        <Grid component="div" key={item.id} sx={{ width: 300, height: 300 }}>
                             <ActionAreaCard data={item} />
                         </Grid>
 
