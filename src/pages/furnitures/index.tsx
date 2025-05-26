@@ -1,4 +1,4 @@
-
+import ProtectedRoute from "@/components/ProtectedRoute";
 import CustomFilterComponent from "@/components/filter/filter";
 import { FilterConfig } from "@/utils/typos";
 
@@ -18,17 +18,21 @@ const index = () => {
         { key: 'style', type: 'select', options: ['Modern', 'Traditional', 'Industrial'] },
         { key: 'color', type: 'select', options: ['Red', 'Blue', 'Green'] },
         { key: 'price', type: 'range', range: [50, 2000] },
+        { key: 'brand', type: 'select', options: ['Nilkamal', 'JK', 'Godrej'] },
     ];
 
     return (
+        <ProtectedRoute>
         <div className="flex flex-col items-center justify-center h-screen">
             <h1>Furnitures Component</h1>
             <CustomFilterComponent
             fields={furnitureFilterConfigs}
             onApply={handleApply}
             onReset={handleReset}
+            category="furnitures"
             />
         </div>
+        </ProtectedRoute>
     )
 }
 

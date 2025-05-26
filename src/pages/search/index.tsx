@@ -9,7 +9,7 @@ const SearchPage =() => {
             <title>Search</title>
             <meta name="description" content="Search page" />
         </Head>
-        <BannerSearch SearchContent={SearchContent}/>
+        <BannerSearch />
         </>
     )
 }

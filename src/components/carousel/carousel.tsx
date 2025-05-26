@@ -14,6 +14,7 @@ export default function CarouselComponent() {
       modules={[Navigation]}
       //  className="mySwiper h-75"
     >
+      <div>carosal</div>
       {carouselData.map((card, index) => (
         <SwiperSlide key={index} className='swipper-div'>
           <img
