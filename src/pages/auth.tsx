@@ -1,34 +1,60 @@
+'use client';
 import { useState } from 'react';
 import { TextField, Button, Box, Typography, Container, Tabs, Tab, Paper } from '@mui/material';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { setCookie } from 'nookies';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const endpoint = isLogin ? '/api/login' : '/api/register';
-    
+    setError('');
+
+    const endpoint = isLogin
+      ? `${process.env.NEXT_PUBLIC_API_URL}/token/`
+      : `${process.env.NEXT_PUBLIC_API_URL}/register/`;
+
+    const payload = isLogin
+      ? { username : email, password }
+      : { name : name, email, password };
+
     try {
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, ...(isLogin ? {} : { name }) }),
+        body: JSON.stringify(payload),
       });
-      
+
       const data = await res.json();
+
       if (res.ok) {
-        localStorage.setItem('token', data.token);
+        setCookie(null, 'access_token', data.access, {
+          path: '/',
+          maxAge: 30 * 60, // 30 minutes
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+        });
+
+        setCookie(null, 'refresh_token', data.refresh, {
+          path: '/',
+          maxAge: 7 * 24 * 60 * 60, // 7 days
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+        });
+
         router.push('/dashboard');
       } else {
-        alert(data.message || 'Something went wrong');
+        setError(data.detail || 'Authentication failed');
       }
-    } catch (error) {
-      alert('Error connecting to server');
+    } catch (err) {
+      console.error(err);
+      setError('Error connecting to server');
     }
   };
 
@@ -38,6 +64,11 @@ export default function AuthPage() {
         <Typography variant="h4" className="text-center mb-6 font-bold text-gray-800">
           {isLogin ? 'Sign In' : 'Create Account'}
         </Typography>
+        {error && (
+          <Typography color="error" className="text-center mb-4">
+            {error}
+          </Typography>
+        )}
         <Tabs
           value={isLogin ? 0 : 1}
           onChange={(e, newValue) => setIsLogin(newValue === 0)}
@@ -96,4 +127,4 @@ export default function AuthPage() {
       </Paper>
     </Container>
   );
-};
+}

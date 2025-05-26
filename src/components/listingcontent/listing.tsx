@@ -16,7 +16,7 @@ const Listing = () => {
   return (
     <div className="py-10 w-[75%] mx-auto">
       <h2 className="text-[30px] font-semibold mb-4">
-        Motorcycles for sale in Dubai
+        Electronics for sale in Dubai
       </h2>
       {ListingContent.map((item, idx) => (
         <Link href={item.link} key={idx} className="flex gap-5 py-5 border-b border-b-[#5f5757] listingCAROUSAL">

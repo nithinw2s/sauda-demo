@@ -27,6 +27,7 @@ const index = () => {
             fields={bikeFilterConfigs}
             onApply={handleApply}
             onReset={handleReset}
+            category="bike"
             />
         </div>
     )
