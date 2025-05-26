@@ -53,7 +53,7 @@ export const filterFields: FilterField[] = [
 ];
 
 
-export const SearchContent = [
+export const SearchContent:any = [
   {
     id:1,
     title: "Honda",
