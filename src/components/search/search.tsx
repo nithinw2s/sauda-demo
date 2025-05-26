@@ -182,51 +182,44 @@ const BannerSearch: React.FC = () => {
   };
 
   return (
-    <div className="relative">
-      {/* Search input field */}
-      <input
-        type="search"
-        placeholder="Search mobile brand..."
-        className="w-[600px] h-[50px] rounded-full pl-5 pr-5 bg-white opacity-80 text-gray-800"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      {/* Suggestions dropdown */}
-      <div className="absolute top-12 left-0 w-[600px]">
-        {query.length > 0 && (
-          <ul className="mt-1 bg-white shadow rounded-md max-h-60 overflow-y-auto">
-            {isLoading ? (
-              <li className="p-3 text-gray-500">Loading...</li>
-            ) : suggestions.length > 0 ? (
-              suggestions.map((item, index) => (
-                <li
-                  key={index}
-                  className={`p-3 hover:bg-gray-100 cursor-pointer ${
-                    item.name.toLowerCase() === query.toLowerCase() ? "bg-gray-100" : ""
-                  }`}
-                  onClick={() => {
-                    setQuery(item.name);
-                  }}
-                >
-                 <a
-                    href={item.link}
-                    className="flex justify-between items-center text-gray-800"
+    <>
+      <div className="relative flex items-center gap-4">
+        <input
+          type="search"
+          placeholder="Search mobile brand..."
+          className="w-[300px] h-[40px] rounded-full pl-5 pr-5 bg-white opacity-80 rounded-none"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <div className="absolute top-10 left-0 w-[300px]">
+          {query.length > 0 && (
+            <ul className="mt-4 bg-white shadow rounded-md suggest-ul">
+              {filtered.length > 0 ? (
+                filtered.map((item) => (
+                  <li
+                    key={item.id}
+                    className="p-2 border-b last:border-b-0"
+                    onClick={() => {
+                      setQuery(item.title);
+                    }}
                   >
-                    <div>
-                      <span>{highlightMatch(item.name, query)}</span>
-                      <span className="ml-2 text-sm text-gray-500">({item.category})</span>
-                    </div>
-                    <span className="text-gray-500">{item.count} Ads</span>
-                  </a>
-                </li>
-              ))
-            ) : (
-              <li className="p-3 text-gray-500">No results found.</li>
-            )}
-          </ul>
-        )}
+                    <a href={item.link} className="flex justify-between items-center">
+                      <p>{highlightMatch(item.title, query)}</p>
+                      <p>{item.ads}</p>
+                    </a>
+                  </li>
+                ))
+              ) : (
+                <li className="p-2 text-gray-500 text-white">No results found.</li>
+              )}
+            </ul>
+          )}
+        </div>
+        <Button className="searchbutton" variant="contained" size="large">
+          Search
+        </Button>
       </div>
-    </div>
+    </>
   );
 };
 

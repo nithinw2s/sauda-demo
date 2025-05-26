@@ -1,4 +1,10 @@
+import { link } from "fs";
 import { FilterField } from "./typos";
+import appliancesImg from "../assets/images/appliances.png";
+import bannerImg from "../assets/images/banner.jpg";
+import carsImg from "../assets/images/cars.jpg";
+import electronicsImg from "../assets/images/electronics.jpg";
+import furnitureImg from "../assets/images/furniture.jpg";
 
 export const filterFields: FilterField[] = [
   {
@@ -98,3 +104,91 @@ export const SearchContent = [
     link: "https://www.lavamobiles.com/"
   }
 ];
+
+export const Categories = [
+  {
+    id: 1,
+    name: "Electronics",
+    image: appliancesImg,
+    link: "/electronics",
+  },
+  {
+    id: 2,
+    name: "Mobiles",
+    image: bannerImg,
+    link: "/mobiles",
+  },
+  {
+    id: 3,
+    name: "Fashion",
+    image: carsImg,
+    link: "/fashions",
+  },
+  {
+    id: 4,
+    name: "Travel",
+    image: electronicsImg,
+    link: "/bike",
+  },
+  {
+    id: 5,
+    name: "Dress",
+    image: furnitureImg,
+    link: "/fashions",
+  },
+  {
+    id: 6,
+    name: "Furniture",
+    image: appliancesImg,
+    link: "/Furnitures",
+  },
+  {
+    id: 7,
+    name: "Electronics",
+    image: appliancesImg,
+    link: "/electronics",
+  },
+  {
+    id: 8,
+    name: "Mobiles",
+    image: bannerImg,
+    link: "/mobiles",
+  },
+];
+
+
+export const ListingContent = [
+  {
+    name: 'Maruti Swift',
+    tax: 4500,
+    price: 'AED 600000',
+    year: 2020,
+    kilometer: 30000,
+    location: 'Delhi, India',
+    date: '2025-03-15',
+    membership:'premium',
+    link: '/mobile'
+  },
+  {
+    name: 'Honda Activa',
+    tax: 1200,
+    price: 'AED 75000',
+    year: 2022,
+    kilometer: 8000,
+    location: 'Pune, India',
+    date: '2025-04-20',
+    membership:'premium',
+    link:'/electronics'
+  },
+  {
+    name: 'Hyundai Creta',
+    tax: 7000,
+    price: 'AED 1200000',
+    year: 2018,
+    kilometer: 60000,
+    location: 'Bangalore, India',
+    date: '2025-05-10',
+    membership:'premium',
+    link:'/bike'
+  },
+]

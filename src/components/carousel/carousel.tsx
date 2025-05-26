@@ -15,7 +15,7 @@ export default function CarouselComponent() {
       //  className="mySwiper h-75"
     >
       {carouselData.map((card, index) => (
-        <SwiperSlide key={index}>
+        <SwiperSlide key={index} className='swipper-div'>
           <img
             src={card.image}
             alt={`Slide ${index + 1}`}

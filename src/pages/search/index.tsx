@@ -1,13 +1,14 @@
 import BannerSearch from "@/components/search/search";
 import { SearchContent } from "@/utils/const";
+import Head from "next/head";
 
 const SearchPage =() => {
     return (
         <>
-        <head>
+        <Head>
             <title>Search</title>
             <meta name="description" content="Search page" />
-        </head>
+        </Head>
         <BannerSearch SearchContent={SearchContent}/>
         </>
     )
