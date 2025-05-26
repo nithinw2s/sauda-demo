@@ -27,6 +27,7 @@ const index = () => {
             fields={superbikeFilterConfigs}
             onApply={handleApply}
             onReset={handleReset}
+            category="superbikes"
             />
         </div>
     )

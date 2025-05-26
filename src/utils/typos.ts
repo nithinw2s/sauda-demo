@@ -11,8 +11,8 @@ export interface FilterField {
 }
 
 export interface FilterConfig {
-  key: string;
-  type: 'select' | 'range';
-  options?: string[]; 
-  range?: [number, number]; 
-};
+    key: string;
+    type: 'select' | 'range';
+    options?: string[] | null;
+    range?: [number, number] | null;
+}

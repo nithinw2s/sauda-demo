@@ -1,151 +1,132 @@
-import { useState, useCallback } from 'react';
-import debounce from 'lodash.debounce';
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-  Slider,
-  TextField,
-  Button,
-  styled,
-} from '@mui/material';
-import { FilterField } from '@/utils/typos';
-import CustomButton from '../customButton';
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import RangeFilterDropdown from '@/components/filter/FilterFields/FilterRangeField';
+import { getRangePairs } from '@/utils/utilsFunctions';
+import { FilterConfig } from '@/utils/typos';
+import FilterDropDown from './FilterFields/FilterDropDown';
 
-interface FilterComponentProps {
-  fields: FilterField[];
-  onFilterChange: (filters: Record<string, any>) => void;
+interface CustomFilterComponentProps {
+    fields: FilterConfig[];
+    category: string; // Added category prop
+    onApply?: (key: string) => void;
+    onReset: (key: string) => void;
 }
 
-const CustomTextField = styled(TextField)(({ theme }) => ({
-  '& .MuiInputBase-root': {
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.default, 
-    transition: theme.transitions.create(['background-color']),
-    '&:hover': {
-      backgroundColor: theme.palette.action.hover,
-    },
-    '&.Mui-focused': {
-      backgroundColor: theme.palette.background.default,
-    },
-  },
-}));
+const CustomFilterComponent: React.FC<CustomFilterComponentProps> = ({
+    fields,
+    category,
+    onApply,
+    onReset,
+}) => {
+    const [filters, setFilters] = useState<any>({});
+    const [listings, setListings] = useState<any[]>([]);
 
-const FilterComponent: React.FC<FilterComponentProps> = ({ fields, onFilterChange }) => {
-  const [filterValues, setFilterValues] = useState<Record<string, any>>({});
-
-  const handleChange = useCallback(
-    (id: string, value: any) => {
-      const updatedFilters = { ...filterValues, [id]: value };
-      setFilterValues(updatedFilters);
-      onFilterChange(updatedFilters);
-    },
-    [filterValues, onFilterChange],
-  );
-
-  const debouncedHandleChange = useCallback(
-    debounce((id: string, value: any) => {
-      handleChange(id, value);
-    }, 300),
-    [handleChange],
-  );
-
-  const resetFilters = () => {
-    setFilterValues({});
-    onFilterChange({});
-  };
-
-  const renderField = (field: FilterField) => {
-    switch (field.type) {
-      case 'dropdown':
-        return (
-          <FormControl fullWidth margin="normal">
-            <InputLabel>{field.label}</InputLabel>
-            <Select
-              value={filterValues[field.id] || ''}
-              onChange={(e) => handleChange(field.id, e.target.value)}
-              label={field.label}
-            >
-              <MenuItem value="">Select {field.label}</MenuItem>
-              {field.options?.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        );
-      case 'checkbox':
-        return (
-          <FormGroup>
-            {field.options?.map((option) => (
-              <FormControlLabel
-                key={option.value}
-                control={
-                  <Checkbox
-                    checked={filterValues[field.id]?.includes(option.value) || false}
-                    onChange={() => {
-                      const currentValues = filterValues[field.id] || [];
-                      const newValues = currentValues.includes(option.value)
-                        ? currentValues.filter((v: string) => v !== option.value)
-                        : [...currentValues, option.value];
-                      handleChange(field.id, newValues);
-                    }}
-                  />
+    const fetchListings = useCallback(async () => {
+        try {
+            const queryParams: any = { category };
+            if (filters.price && Array.isArray(filters.price)) {
+                queryParams.price_min = filters.price[0];
+                queryParams.price_max = filters.price[1];
+            }
+            Object.keys(filters).forEach((key) => {
+                if (key !== 'price' && filters[key]?.length > 0) {
+                    queryParams[key] = filters[key][0];
                 }
-                label={option.label}
-              />
-            ))}
-          </FormGroup>
-        );
-      case 'slider':
-        return (
-          <Box sx={{ mt: 2, mb: 2 }}>
-            <InputLabel>{field.label}</InputLabel>
-            <Slider
-              value={filterValues[field.id] || field.min || 0}
-              onChange={(_, value) => debouncedHandleChange(field.id, value)}
-              min={field.min}
-              max={field.max}
-              valueLabelDisplay="auto"
-            />
-          </Box>
-        );
-      case 'text':
-        return (
-          <CustomTextField
-            fullWidth
-            margin="normal"
-            label={field.label}
-            value={filterValues[field.id] || ''}
-            onChange={(e) => debouncedHandleChange(field.id, e.target.value)}
-          />
-        );
-      default:
-        return null;
-    }
-  };
+            });
 
-  return (
-    <Box sx={{ p: 2, bgcolor: 'background.paper', borderRadius: 2, display:'flex', 
-    justifyContent: 'space-between', minWidth: '90vw', border: '1px solid black 0', 
-    boxShadow:'rgba(0, 0, 0, 0.1) 0px 2px 4px' }}>
-      {fields.map((field) => (
-        <Box key={field.id} sx={{ mb: 2 }}>
-          {renderField(field)}
-        </Box>
-      ))}
-      <CustomButton onClick={resetFilters} size='small' >
-        Reset Filters
-      </CustomButton>
-    </Box>
-  );
+            const queryString = new URLSearchParams(queryParams).toString();
+            const response = await fetch(`http://127.0.0.1:8000/api/listings/filter/?${queryString}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setListings(data || []);
+        } catch (error) {
+            console.error('Error fetching listings:', error);
+            setListings([]);
+        }
+    }, [filters, category]);
+
+    useEffect(() => {
+        fetchListings();
+    }, [fetchListings]);
+
+    const handleApply = (key: string) => {
+        console.log(`Applied filter from filter component: `, filters);
+        onApply?.(key);
+    };
+
+    const handleSelect = (key: string, item: string | number[]) => {
+        setFilters((prev: any) => ({
+            ...prev,
+            [key]: Array.isArray(item) ? item : item === 'all' ? [] : [item],
+        }));
+    };
+
+    const renderCustomFilterComponent = (config: FilterConfig) => {
+        switch (config.type) {
+            case 'select':
+                return (
+                    <FilterDropDown
+                        filterKey={config.key}
+                        filetrerOptions={config.options || []}
+                        selectedOptions={filters[config.key] || []}
+                        onSelectedOptionsChange={handleSelect}
+                        onApply={handleApply}
+                        onReset={onReset}
+                    />
+                );
+            case 'range':
+                return (
+                    <RangeFilterDropdown
+                        filterKey={config.key}
+                        onRangeChange={handleSelect}
+                        onApply={handleApply}
+                        onReset={onReset}
+                        predefinedRanges={config.range ? getRangePairs(config.range[0], config.range[1]) : []}
+                    />
+                );
+            default:
+                return null;
+        }
+    };
+
+    return (
+        <div className="flex flex-col items-center h-screen">
+            <div className="flex flex-row justify-center mt-4 gap-2">
+                {fields.length > 0 ? (
+                    fields.map((config) => (
+                        <div key={config.key}>{renderCustomFilterComponent(config)}</div>
+                    ))
+                ) : (
+                    <p>No filters available for this category.</p>
+                )}
+            </div>
+            <div className="mt-8">
+                <h2>Listings</h2>
+                {listings.length > 0 ? (
+                    listings.map((listing) => (
+                        <div key={listing.id} className="border p-4 my-2 rounded-lg">
+                            <h3>{listing.title}</h3>
+                            <p>Price: ${listing.price}</p>
+                            <p>Brand: {listing.brand}</p>
+                            {listing.category === 'automobiles' && listing.automobile && (
+                                <p>Model: {listing.automobile.model}</p>
+                            )}
+                        </div>
+                    ))
+                ) : (
+                    <p>No listings found.</p>
+                )}
+            </div>
+        </div>
+    );
 };
 
-export default React.memo(FilterComponent);
+export default React.memo(CustomFilterComponent);
