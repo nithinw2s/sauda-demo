@@ -15,6 +15,7 @@ interface RangeFilterDropdownProps {
   menuStyle?: React.CSSProperties;
   wrapperStyle?: React.CSSProperties;
   textStyle?: React.CSSProperties;
+  selectedRange?: number[];
 }
 
 const RangeFilterDropdown = ({
@@ -27,10 +28,10 @@ const RangeFilterDropdown = ({
   menuStyle = {},
   wrapperStyle = {},
   textStyle = {},
+  selectedRange = [0, 100],
 }: RangeFilterDropdownProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedRange, setSelectedRange] = useState<[number, number]>([0, 100]);
-  const [sliderValue, setSliderValue] = useState<[number, number]>([0, 100]);
+  const [sliderValue, setSliderValue] = useState<number[]>([0, 100]);
 
   // Sync slider value with selected range
   useEffect(() => {
@@ -46,7 +47,6 @@ const RangeFilterDropdown = ({
   };
 
   const handleRangeSelect = (range: [number, number]) => {
-    setSelectedRange(range);
     onRangeChange(filterKey, range);
   };
 
@@ -54,7 +54,6 @@ const RangeFilterDropdown = ({
     if (Array.isArray(newValue)) {
       setSliderValue([newValue[0], newValue[1]]);
       onRangeChange(filterKey, [newValue[0], newValue[1]]);
-      setSelectedRange([newValue[0], newValue[1]]);
     }
   }, 300);
 
@@ -64,7 +63,6 @@ const RangeFilterDropdown = ({
   };
 
   const handleReset = () => {
-    setSelectedRange([0, 100]);
     setSliderValue([0, 100]);
     onReset(filterKey);
     handleClose();

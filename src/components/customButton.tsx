@@ -10,6 +10,13 @@ interface CustomButtonProps {
     className?: string
 };
 
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    ochre: true;
+    salmon: true;
+  }
+}
+
 const CustomButton: FC <CustomButtonProps> = ({
     children,
     onClick,
@@ -45,7 +52,8 @@ const CustomButton: FC <CustomButtonProps> = ({
 
     return (
         <Button
-            className={btnStyle}
+            color="salmon"
+            sx={{ backgroundColor: "ochre.light" }}
             onClick={onClick}
             disabled={disabled}
         >

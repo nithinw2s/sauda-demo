@@ -14,18 +14,24 @@
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource/roboto": "^5.2.5",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "force": "^0.0.3",
     "axios": "^1.9.0",
     "jose": "^6.0.11",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "lucide-react": "^0.511.0",
     "next": "15.3.2",
     "nookies": "^2.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "swiper": "^11.2.6"
+    "swiper": "^11.2.6",
+    "tailwind-merge": "^3.3.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -36,6 +42,7 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.1.7",
+    "tw-animate-css": "^1.3.0",
     "typescript": "^5"
   }
 }
