@@ -1,23 +1,23 @@
-'use client';
-import { Typography, Container, Button } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { destroyCookie } from 'nookies';
-import Image from 'next/image';
-import Banner from '@/assets/images/dubaibanner.jpg';
-import Topbar from '@/components/topbar/topbar';
-import Categorie from '@/components/catergories/catergorie'; // Fixed typo in import
-import Carousel from '@/components/carousel/carousel'; // Standardized to 'Carousel'
-import CardsPage from '@/pages/cards/cardspage'; // Adjusted path
-import Listing from '@/components/listingcontent/listing';
-import ProtectedRoute from '@/components/ProtectedRoute';
+"use client";
+import { Typography, Container, Button } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { destroyCookie } from "nookies";
+import Image from "next/image";
+import Banner from "@/assets/images/dubaibanner.jpg";
+import Topbar from "@/components/topbar/topbar";
+import Categorie from "@/components/catergories/catergorie"; // Fixed typo in import
+import Carousel from "@/components/carousel/carousel"; // Standardized to 'Carousel'
+import CardsPage from "@/pages/cards/cardspage"; // Adjusted path
+import Listing from "@/components/listingcontent/listing";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function Dashboard() {
   const router = useRouter();
 
   const handleLogout = () => {
-    destroyCookie(null, 'access_token', { path: '/' });
-    destroyCookie(null, 'refresh_token', { path: '/' });
-    router.push('/auth');
+    destroyCookie(null, "access_token", { path: "/" });
+    destroyCookie(null, "refresh_token", { path: "/" });
+    router.push("/auth");
   };
 
   return (

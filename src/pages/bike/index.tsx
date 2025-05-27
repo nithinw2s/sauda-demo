@@ -1,6 +1,7 @@
 
 import CustomFilterComponent from "@/components/filter/filter";
 import { FilterConfig } from "@/utils/typos";
+import { Box } from "@mui/material";
 
 
 const index = () => {
@@ -22,10 +23,11 @@ const index = () => {
 
     return (
         <div className="flex flex-col items-center justify-center h-screen">
-            <h1>Bikes Component</h1>
+            <Box sx={{ fontFamily: 'Raleway' }}>Raleway Bikes Component</Box>
+            <h3>Bikes Component</h3>
             <CustomFilterComponent
             fields={bikeFilterConfigs}
-            onApply={handleApply}
+            // onApply={handleApply}
             onReset={handleReset}
             category="bike"
             />

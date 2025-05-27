@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { type FC, type ButtonHTMLAttributes, Children } from "react";
 
 interface CustomButtonProps {
@@ -8,6 +9,13 @@ interface CustomButtonProps {
     disabled? : boolean;
     className?: string
 };
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    ochre: true;
+    salmon: true;
+  }
+}
 
 const CustomButton: FC <CustomButtonProps> = ({
     children,
@@ -43,13 +51,14 @@ const CustomButton: FC <CustomButtonProps> = ({
     
 
     return (
-        <button
-            className={btnStyle}
+        <Button
+            color="salmon"
+            sx={{ backgroundColor: "ochre.light" }}
             onClick={onClick}
             disabled={disabled}
         >
             {children}
-        </button>)
+        </Button>)
 
 };
 

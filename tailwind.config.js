@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'home-primary': '#4caf50', // Matches MUI home theme
+        'filter-primary': '#0288d1', // Matches MUI filter theme
+      },
       maxHeight: {
         'fit': 'fit-content',
       }

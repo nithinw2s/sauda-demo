@@ -1,68 +1,101 @@
-'use client';
-import { useState } from 'react';
-import { TextField, Button, Box, Typography, Container, Tabs, Tab, Paper } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import { setCookie } from 'nookies';
+"use client";
+import { useState } from "react";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Container,
+  Tabs,
+  Tab,
+  Paper,
+} from "@mui/material";
+import { useRouter } from "next/navigation";
+import { setCookie } from "nookies";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     const endpoint = isLogin
       ? `${process.env.NEXT_PUBLIC_API_URL}/token/`
       : `${process.env.NEXT_PUBLIC_API_URL}/register/`;
 
     const payload = isLogin
-      ? { username : email, password }
-      : { name : name, email, password };
+      ? { username: email, password }
+      : { name: name, email, password };
 
     try {
       const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        setCookie(null, 'access_token', data.access, {
-          path: '/',
+        setCookie(null, "access_token", data.access, {
+          path: "/",
           maxAge: 30 * 60, // 30 minutes
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'lax',
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
         });
 
-        setCookie(null, 'refresh_token', data.refresh, {
-          path: '/',
+        setCookie(null, "refresh_token", data.refresh, {
+          path: "/",
           maxAge: 7 * 24 * 60 * 60, // 7 days
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'lax',
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
         });
 
-        router.push('/dashboard');
+        router.push("/dashboard");
       } else {
-        setError(data.detail || 'Authentication failed');
+        setError(data.detail || "Authentication failed");
       }
     } catch (err) {
       console.error(err);
-      setError('Error connecting to server');
+      setError("Error connecting to server");
     }
+
+    // try {
+    //   const res = await fetch(endpoint, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ email, password, ...(isLogin ? {} : { name }) }),
+    //   });
+
+    //   const data = await res.json();
+    //   if (res.ok) {
+    //     localStorage.setItem('token', data.token);
+    //     router.push('/dashboard');
+    //   } else {
+    //     alert(data.message || 'Something went wrong');
+    //   }
+    // } catch (error) {
+    //   alert('Error connecting to server');
+    // }
   };
 
   return (
-    <Container maxWidth="sm" className="min-h-screen flex items-center justify-center bg-gray-100">
+    <Container
+      maxWidth="sm"
+      className="min-h-screen flex items-center justify-center bg-gray-100"
+    >
       <Paper elevation={3} className="p-8 w-full max-w-md">
-        <Typography variant="h4" className="text-center mb-6 font-bold text-gray-800">
-          {isLogin ? 'Sign In' : 'Create Account'}
+        <Typography
+          variant="h4"
+          className="text-center mb-6 font-bold text-gray-800"
+        >
+          {isLogin ? "Sign In" : "Create Account"}
         </Typography>
         {error && (
           <Typography color="error" className="text-center mb-4">
@@ -78,7 +111,11 @@ export default function AuthPage() {
           <Tab label="Sign In" className="text-blue-600" />
           <Tab label="Sign Up" className="text-blue-600" />
         </Tabs>
-        <Box component="form" onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4"
+        >
           {!isLogin && (
             <TextField
               fullWidth
@@ -112,16 +149,16 @@ export default function AuthPage() {
             variant="contained"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-md"
           >
-            {isLogin ? 'Sign In' : 'Sign Up'}
+            {isLogin ? "Sign In" : "Sign Up"}
           </Button>
         </Box>
         <Typography className="text-center mt-4 text-gray-600">
-          {isLogin ? "Don't have an account?" : 'Already have an account?'}{' '}
+          {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
           <span
             className="text-blue-600 cursor-pointer hover:underline"
             onClick={() => setIsLogin(!isLogin)}
           >
-            {isLogin ? 'Sign up' : 'Sign in'}
+            {isLogin ? "Sign up" : "Sign in"}
           </span>
         </Typography>
       </Paper>

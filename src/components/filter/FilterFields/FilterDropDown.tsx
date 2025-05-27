@@ -4,6 +4,7 @@ import CustomButton from "../../customButton";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { CustomMenuItem } from "../../customComponents/customComponents";
+import { useTheme } from '@mui/material/styles';
 
 interface FilterDropDownProps {
     filterKey: string;
@@ -39,6 +40,8 @@ const FilterDropDown = ({
     resetButtonStyle = {},
 }: FilterDropDownProps) => {
 
+    const theme = useTheme();
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -52,6 +55,7 @@ const FilterDropDown = ({
     return (
         <div className="border border-gray-600 rounded-lg max-h-fit" style={wrapperStyle}>
             <Button
+                // style={{ backgroundColor: theme.palette.background.paper}}
                 id={`basic-button-${filterKey}`}
                 aria-controls={Boolean(anchorEl) ? `basic-menu-${filterKey}` : undefined}
                 aria-haspopup="true"

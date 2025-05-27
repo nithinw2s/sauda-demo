@@ -3,9 +3,8 @@ import Head from 'next/head';
 import { AppProps } from 'next/app';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createEmotionCache from '../createEmotionCache';
-import { ThemeProvider, CssBaseline } from '@mui/material';
-import theme from '../theme';
 import "../styles/globals.css";
+import ThemeSwitcher from '@/styles/themeSwitcher';
 
 // Client-side Emotion cache (shared across sessions)
 const clientSideEmotionCache = createEmotionCache();
@@ -24,10 +23,9 @@ const App: React.FC<MyAppProps> = (props) => {
       </Head>
 
     {/* <ProtectedRoute></ProtectedRoute> */}
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <ThemeSwitcher>
         <Component {...pageProps} />
-      </ThemeProvider>
+      </ThemeSwitcher>
     </CacheProvider>
   );
 };
